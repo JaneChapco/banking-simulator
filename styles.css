@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f3f4f6;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #e5e7eb;
+}
+
+body {
+  background-color: #f3f4f6;
+}
+
+.nav-pills .nav-link {
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #725ac1;
+}
+
+.card {
+  border-radius: 12px;
+}
+#deposit-alert,
+#transfer-alert {
+  display: none;
+}
