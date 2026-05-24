@@ -11,8 +11,10 @@ function showHideDetails() {
       "Account Number: 00102020387929";
     document.getElementById("account-name").innerText =
       "Account Name: Jane Chapco";
-    document.getElementById("chequing-balance").innerText = "$1000.00";
-    document.getElementById("saving-balance").innerText = "$2500.00";
+    document.getElementById("chequing-balance").innerText =
+      `$${chequingBalance.toFixed(2)}`;
+    document.getElementById("savings-balance").innerText =
+      `$${savingsBalance.toFixed(2)}`;
     document.getElementById("eye-icon").src = "assets/images/hide.png";
   } else {
     document.getElementById("account-number").innerText =
@@ -20,18 +22,25 @@ function showHideDetails() {
     document.getElementById("account-name").innerText =
       "Account Name: Jane *****";
     document.getElementById("chequing-balance").innerText = "$****";
-    document.getElementById("saving-balance").innerText = "$****";
+    document.getElementById("savings-balance").innerText = "$****";
     document.getElementById("eye-icon").src = "assets/images/show.png";
   }
 }
 
 function deposit() {
   const depositType = document.getElementById("deposit-type").value;
-  const depositAmount = Number(document.getElementById("deposit-amount").value);
   const depositAccount = document.getElementById("deposit-account").value;
+  const depositAmount = Number(document.getElementById("deposit-amount").value);
   const depositMemo = document.getElementById("deposit-memo").value;
 
-  if (depositAccount === "chequing") {
+  //VALIDATION
+
+  if (!depositAmount) {
+    alert("Please enter a deposit amount.");
+    return;
+  }
+
+  if (depositAccount === "Chequing") {
     chequingBalance += depositAmount;
   } else {
     savingsBalance += depositAmount;
@@ -45,7 +54,7 @@ function deposit() {
     document.getElementById("deposit-alert").style.display = "none";
   }, 10000);
 
-  addDepositToHistory(depositType, depositAmount, depositAccount, depositMemo);
+  addDepositToHistory(depositType, depositAccount, depositAmount, depositMemo);
 }
 
 function transfer() {
@@ -60,7 +69,23 @@ function transfer() {
   const transferAccount = document.getElementById("transfer-account").value;
   const transferMemo = document.getElementById("transfer-memo").value;
 
-  if (transferAccount === "chequing") {
+  // VALIDATION
+
+  if (beneficiaryName.trim() === "") {
+    alert("Please enter a beneficiary name.");
+    return;
+  }
+  if (beneficiaryAccountNumber.trim() === "") {
+    alert("Please enter a beneficiary account number.");
+    return;
+  }
+
+  if (!transferAmount) {
+    alert("Please enter a transfer amount.");
+    return;
+  }
+
+  if (transferAccount === "Chequing") {
     chequingBalance -= transferAmount;
   } else {
     savingsBalance -= transferAmount;
@@ -98,8 +123,8 @@ const parent = document.getElementById("transaction-list");
 
 function addDepositToHistory(
   depositType,
-  depositAmount,
   depositAccount,
+  depositAmount,
   depositMemo,
 ) {
   const parent = document.getElementById("transaction-list");
@@ -123,15 +148,21 @@ function addDepositToHistory(
   detailsDiv.classList.add("text-muted");
   detailsDiv.innerText = `To: ${depositAccount} account`;
 
-  const memoDiv = document.createElement("div");
-  memoDiv.classList.add("text-muted");
-  memoDiv.innerText = `Memo: ${depositMemo}`;
+  leftSectionDiv.append(titleDiv, detailsDiv);
 
   const timeDiv = document.createElement("div");
   timeDiv.classList.add("text-muted");
   timeDiv.innerText = `Time: ${new Date().toLocaleString()}`;
 
-  leftSectionDiv.append(titleDiv, detailsDiv, memoDiv, timeDiv);
+  if (depositMemo.trim() !== "") {
+    const memoDiv = document.createElement("div");
+    memoDiv.classList.add("text-muted");
+    memoDiv.innerText = `Memo: ${depositMemo}`;
+
+    leftSectionDiv.append(memoDiv);
+  }
+
+  leftSectionDiv.append(timeDiv);
 
   const rightSectionDiv = document.createElement("div");
   rightSectionDiv.classList.add("text-end");
@@ -143,7 +174,7 @@ function addDepositToHistory(
   const balanceDiv = document.createElement("div");
   balanceDiv.classList.add("text-muted");
 
-  if (depositAccount === "chequing") {
+  if (depositAccount === "Chequing") {
     balanceDiv.innerText = `Balance: $${chequingBalance.toFixed(2)}`;
   } else {
     balanceDiv.innerText = `Balance: $${savingsBalance.toFixed(2)}`;
@@ -187,15 +218,21 @@ function addTransferToHistory(
 
   detailsDiv.innerText = `From: ${transferAccount} account | To: ${beneficiaryName} (Account: XXX${last2Digits})`;
 
-  const memoDiv = document.createElement("div");
-  memoDiv.classList.add("text-muted");
-  memoDiv.innerText = `Memo: ${transferMemo}`;
+  leftSectionDiv.append(titleDiv, detailsDiv);
 
   const timeDiv = document.createElement("div");
   timeDiv.classList.add("text-muted");
   timeDiv.innerText = `Time: ${new Date().toLocaleString()}`;
 
-  leftSectionDiv.append(titleDiv, detailsDiv, memoDiv, timeDiv);
+  if (transferMemo.trim() !== "") {
+    const memoDiv = document.createElement("div");
+    memoDiv.classList.add("text-muted");
+    memoDiv.innerText = `Memo: ${transferMemo}`;
+
+    leftSectionDiv.append(memoDiv);
+  }
+
+  leftSectionDiv.append(timeDiv);
 
   const rightSectionDiv = document.createElement("div");
   rightSectionDiv.classList.add("text-end");
@@ -207,7 +244,7 @@ function addTransferToHistory(
   const balanceDiv = document.createElement("div");
   balanceDiv.classList.add("text-muted");
 
-  if (transferAccount === "chequing") {
+  if (transferAccount === "Chequing") {
     balanceDiv.innerText = `Balance: $${chequingBalance.toFixed(2)}`;
   } else {
     balanceDiv.innerText = `Balance: $${savingsBalance.toFixed(2)}`;
