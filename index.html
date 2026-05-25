@@ -25,7 +25,7 @@
     <!-- Link CSS stylesheet -->
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <!-- Add navbar from Bootstrap -->
     <nav class="navbar navbar-light navbar-expand-lg px-3">
       <div class="container-fluid">
@@ -63,7 +63,7 @@
       </div>
     </nav>
 
-    <main>
+    <main class="container flex-grow-1 py-4">
       <div class="container-fluid mt-4">
         <div class="row">
           <!-- LEFT SIDEBAR -->
@@ -126,7 +126,7 @@
                       class="d-flex align-items-center justify-content-between"
                     >
                       <h5 class="card-title" id="account-number">
-                        Account Number: 00102020387929
+                        Account Number: 76584345323423
                       </h5>
                       <img
                         src="assets/images/hide.png"
@@ -156,6 +156,19 @@
 
               <!-- DEPOSIT -->
               <div class="tab-pane fade" id="deposit">
+                <div
+                  class="alert alert-success alert-dismissible fade show mt-2"
+                  role="alert"
+                  id="deposit-alert"
+                >
+                  Your deposit was successful.
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                </div>
                 <div class="card mb-4">
                   <div class="card-body">
                     <h5 class="card-title">Deposit</h5>
@@ -166,9 +179,9 @@
                             >Deposit type</label
                           >
                           <select class="form-select" id="deposit-type">
-                            <option value="Cash">CASH</option>
-                            <option value="Cheque">CHEQUE</option>
-                            <option value="Money Order">MONEY ORDER</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Cheque">Cheque</option>
+                            <option value="Money Order">Money order</option>
                           </select>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -181,26 +194,29 @@
                           </select>
                         </div>
                       </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="deposit-amount"
-                          >Amount</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="deposit-amount"
-                        />
-                      </div>
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label class="form-label" for="deposit-amount"
+                            >Amount</label
+                          >
+                          <input
+                            type="number"
+                            min="0"
+                            class="form-control"
+                            id="deposit-amount"
+                          />
+                        </div>
 
-                      <div class="mb-3">
-                        <label class="form-label" for="deposit-memo"
-                          >Memo (optional)</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="deposit-memo"
-                        />
+                        <div class="col-md-6 mb-3">
+                          <label class="form-label" for="deposit-memo"
+                            >Memo (optional)</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="deposit-memo"
+                          />
+                        </div>
                       </div>
                       <button
                         type="button"
@@ -212,17 +228,23 @@
                     </form>
                   </div>
                 </div>
-                <div
-                  class="alert alert-success mt-2"
-                  role="alert"
-                  id="deposit-alert"
-                >
-                  Your deposit was successful.
-                </div>
               </div>
 
               <!-- TRANSFER -->
               <div class="tab-pane fade" id="transfer">
+                <div
+                  class="alert alert-success alert-dismissible fade show mt-2"
+                  role="alert"
+                  id="transfer-alert"
+                >
+                  Your transfer was successful.
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                </div>
                 <div class="card mb-4">
                   <div class="card-body">
                     <h5 class="card-title">Transfer</h5>
@@ -268,31 +290,33 @@
                             >Transfer type</label
                           >
                           <select class="form-select" id="transfer-type">
-                            <option value="ACH">ACH</option>
-                            <option value="WIRE">WIRE</option>
+                            <option value="WIRE">Wire</option>
                             <option value="SWIFT">SWIFT</option>
                           </select>
                         </div>
                       </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="transfer-amount"
-                          >Amount</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="transfer-amount"
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label" for="transfer-memo"
-                          >Memo (optional)</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="transfer-memo"
-                        />
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label class="form-label" for="transfer-amount"
+                            >Amount</label
+                          >
+                          <input
+                            type="number"
+                            min="0"
+                            class="form-control"
+                            id="transfer-amount"
+                          />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label class="form-label" for="transfer-memo"
+                            >Memo (optional)</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="transfer-memo"
+                          />
+                        </div>
                       </div>
                       <button
                         type="button"
@@ -303,13 +327,6 @@
                       </button>
                     </form>
                   </div>
-                </div>
-                <div
-                  class="alert alert-success mt-2"
-                  role="alert"
-                  id="transfer-alert"
-                >
-                  Your transfer was successful.
                 </div>
               </div>
 
@@ -328,6 +345,7 @@
       </div>
     </main>
 
+    <!--FOOTER-->
     <footer class="bg-light text-center py-3 border-top">
       <p class="mb-2 small text-muted">© 2026 eBank. All rights reserved.</p>
       <ul class="list-inline mb-0 ps-0">

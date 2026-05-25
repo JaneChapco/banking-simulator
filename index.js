@@ -8,7 +8,7 @@ function showHideDetails() {
 
   if (showDetails) {
     document.getElementById("account-number").innerText =
-      "Account Number: 00102020387929";
+      "Account Number: 76584345323423";
     document.getElementById("account-name").innerText =
       "Account Name: Jane Chapco";
     document.getElementById("chequing-balance").innerText =
@@ -18,7 +18,7 @@ function showHideDetails() {
     document.getElementById("eye-icon").src = "assets/images/hide.png";
   } else {
     document.getElementById("account-number").innerText =
-      "Account Number: *****7929";
+      "Account Number: *****3423";
     document.getElementById("account-name").innerText =
       "Account Name: Jane *****";
     document.getElementById("chequing-balance").innerText = "$****";
@@ -35,8 +35,8 @@ function deposit() {
 
   //VALIDATION
 
-  if (!depositAmount) {
-    alert("Please enter a deposit amount.");
+  if (isNaN(depositAmount) || depositAmount <= 0) {
+    alert("Please enter a valid deposit amount.");
     return;
   }
 
@@ -49,10 +49,6 @@ function deposit() {
 
   document.getElementById("deposit-form").reset();
   document.getElementById("deposit-alert").style.display = "block";
-
-  setTimeout(() => {
-    document.getElementById("deposit-alert").style.display = "none";
-  }, 10000);
 
   addDepositToHistory(depositType, depositAccount, depositAmount, depositMemo);
 }
@@ -80,8 +76,8 @@ function transfer() {
     return;
   }
 
-  if (!transferAmount) {
-    alert("Please enter a transfer amount.");
+  if (isNaN(transferAmount) || transferAmount <= 0) {
+    alert("Please enter a valid transfer amount.");
     return;
   }
 
@@ -94,10 +90,6 @@ function transfer() {
 
   document.getElementById("transfer-form").reset();
   document.getElementById("transfer-alert").style.display = "block";
-
-  setTimeout(() => {
-    document.getElementById("transfer-alert").style.display = "none";
-  }, 10000);
 
   addTransferToHistory(
     beneficiaryAccountNumber,
@@ -118,8 +110,6 @@ function updateBalances() {
 }
 
 updateBalances();
-
-const parent = document.getElementById("transaction-list");
 
 function addDepositToHistory(
   depositType,
