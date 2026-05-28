@@ -47,10 +47,16 @@ function deposit() {
   }
   updateBalances();
 
-  document.getElementById("deposit-form").reset();
-  document.getElementById("deposit-alert").style.display = "block";
-
   addDepositToHistory(depositType, depositAccount, depositAmount, depositMemo);
+
+  document.getElementById("deposit-form").reset();
+
+  const depositAlert = document.getElementById("deposit-alert");
+  depositAlert.style.display = "block";
+
+  setTimeout(() => {
+    depositAlert.style.display = "none";
+  }, 3000);
 }
 
 function transfer() {
@@ -88,9 +94,6 @@ function transfer() {
   }
   updateBalances();
 
-  document.getElementById("transfer-form").reset();
-  document.getElementById("transfer-alert").style.display = "block";
-
   addTransferToHistory(
     beneficiaryAccountNumber,
     beneficiaryName,
@@ -99,6 +102,15 @@ function transfer() {
     transferAccount,
     transferMemo,
   );
+
+  document.getElementById("transfer-form").reset();
+
+  const transferAlert = document.getElementById("transfer-alert");
+  transferAlert.style.display = "block";
+
+  setTimeout(() => {
+    transferAlert.style.display = "none";
+  }, 3000);
 }
 
 function updateBalances() {
